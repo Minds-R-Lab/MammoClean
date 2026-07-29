@@ -33,3 +33,12 @@ one consistent table.
 | CBIS-DDSM    | `ddsm.py`   | `calc_*` and `mass_*` case-description CSVs (test + train)                      | `CBIS-DDSM.csv`                               |
 | TOMPEI-CMMD  | `cmmd.py`   | `TOMPEI-CMMD_clinical_data_*.xlsx`                                              | `TOMPEI-CMMD.csv`                             |
 | VinDr-Mammo  | `vindr.py`  | `metadata.csv`, `finding_annotations.csv`, `breast-level_annotations.csv`       | `VinDr-Mammo.csv`                             |
+
+
+**Stage 2: Process the images.** `process_datasets.py` takes one unified CSV
+from Stage 1 together with that dataset's raw DICOM images. For each CSV row it
+finds the matching DICOM file, normalizes the pixel data to 8-bit grayscale,
+corrects the breast laterality, and writes the result as a `.npy` image. It also
+writes a per-patient `info.txt` (diagnosis, BI-RADS, and density per side) and a
+filtered CSV containing only the rows it could successfully match.
+
